@@ -5,7 +5,7 @@ from rest_framework import status
 from django.core.cache import cache
 from django.conf import settings
 from botocore.exceptions import NoCredentialsError, ClientError
-from .views import logger
+from .logger import logger
 
 #send image pre-signed url to model inference service, todo: get models pre-signed url to return.
 def request_to_process_image(image_s3_key):

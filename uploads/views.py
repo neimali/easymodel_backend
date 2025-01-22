@@ -4,17 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 import os
-import logging
 import uuid
 import json
 import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 from .utils import request_to_process_image, generate_s3_presigned_for_image
+from .logger import logger
 # Create your views here.
-
-
-logger = logging.getLogger(__name__)
-
 
 class UploadImageView(APIView):
     def __init__(self, **kwargs):
