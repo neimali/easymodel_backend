@@ -17,6 +17,9 @@ RUN poetry install --no-dev --no-interaction --no-ansi
 # 复制 Django 项目代码到容器中
 COPY . /app/
 
+# 设置 PYTHONPATH
+ENV PYTHONPATH=/app
+
 # 暴露 Django 默认的端口
 EXPOSE 8000
 
