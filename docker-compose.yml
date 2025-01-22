@@ -12,7 +12,9 @@ services:
       - ./your_project:/app/your_project
     environment:
       DEBUG: "True"
-    command: ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
 
