@@ -9,10 +9,10 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - ./your_project:/app/your_project
     environment:
-      - DEBUG=True
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+      DEBUG: "True"
+    command: ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
     depends_on:
       - db
 
