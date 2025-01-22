@@ -13,10 +13,10 @@ services:
     environment:
       DEBUG: "True"
     command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
+    restart: always  # 可选，确保容器崩溃时重新启动
 
   db:
     image: postgres:13
@@ -29,7 +29,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always  # 可选，确保容器崩溃时重新启动
 
 volumes:
   postgres_data:
     driver: local
+
