@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'uploads', 
     'rest_framework', 
     'storages', 
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'easymodelbackend.urls'
@@ -126,13 +128,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#cors settings
+CORS_ALLOWED_ORIGINS = [
+    "http://3.94.82.167", 
+    "http://ec2-3-94-82-167.compute-1.amazonaws.com", 
+]
+
+
 #AWS S3 configuration
 AWS_S3_CLIENT = boto3.client('s3')
-AWS_ACCESS_KEY_ID = '<your-access-key-id>'
-AWS_SECRET_ACCESS_KEY = '<your-secret-access-key>'
-AWS_STORAGE_BUCKET_NAME = '<your-bucket-name>'
-AWS_S3_REGION_NAME = 'us-west-2'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_STORAGE_BUCKET_NAME = 'easymodelbucket'
 AWS_PRESIGNED_URL_EXPIRATION = 3600
 
 # Django file storage setting
