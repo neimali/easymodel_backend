@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'easymodelbackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'easymodeldb',          # 数据库名称
+        'USER': 'easymodel',          # 数据库用户名
+        'PASSWORD': 'easymodel',  # 数据库密码
+        'HOST': 'db',            # 数据库主机名，与 docker-compose.yml 中的服务名一致
+        'PORT': '5432',          # 数据库端口，PostgreSQL 默认端口是 5432
     }
 }
 AUTH_USER_MODEL = 'uploads.CustomUser'
