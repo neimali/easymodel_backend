@@ -11,7 +11,7 @@ COPY pyproject.toml poetry.lock /app/
 RUN pip install poetry
 
 # 安装依赖
-RUN poetry install --only main --no-interaction --no-ansi
+RUN poetry install --no-root
 
 # 复制 Django 项目代码到容器中
 COPY . /app/
