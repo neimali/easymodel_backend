@@ -16,7 +16,19 @@ services:
       sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
+      - redis
     restart: always  # 可选，确保容器崩溃时重新启动
+    environment:
+      # 在这里可以把 Redis 地址做成环境变量，也可以直接写死在 settings.py
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  
+  redis:
+    image: redis:latest
+    container_name: my_redis
+    restart: always
+    ports:
+      - "6379:6379"
 
   db:
     image: postgres:13
