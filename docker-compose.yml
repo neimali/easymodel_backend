@@ -13,8 +13,8 @@ services:
     environment:
       DEBUG: "True"
       # 在这里可以把 Redis 地址做成环境变量，也可以直接写死在 settings.py
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     command: >
       sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
