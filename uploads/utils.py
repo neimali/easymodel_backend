@@ -36,6 +36,7 @@ def generate_s3_presigned_for_image(image_s3_key):
                                         Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
                                                 'Key': image_s3_key},
                                         ExpiresIn=settings.AWS_PRESIGNED_URL_EXPIRATION)
+        print(image_s3_key + ' ------ ' + image_pre_signed_url)
         cache.set(image_s3_key, image_pre_signed_url, timeout=3600)
         return image_pre_signed_url
     except NoCredentialsError:
