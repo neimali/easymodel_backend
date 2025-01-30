@@ -16,7 +16,7 @@ def request_to_process_image(image_s3_key):
         except Exception as e:
             logger.error(f"Failed to generate presigned URL for key {image_s3_key}: {e}")
             return Response({'error': 'Unable to re-generate presigned URL'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    flask_service_url = settings.MODEL_INFERNECE_SERVICE_DOMAIN
+    flask_service_url = settings.MODEL_INFERNECE_SERVICE_DOMAIN + '/inference'
     payload = {"presigned_url": presigned_url}
     try:
         response = requests.post(flask_service_url, json=payload)
