@@ -19,14 +19,18 @@ services:
     depends_on:
       - db
       - redis
-    restart: always  
-  
+    restart: always
+    networks:
+      - app-network  # 确保与前端容器共享网络
+
   redis:
     image: redis:latest
     container_name: my_redis
     restart: always
     ports:
       - "6379:6379"
+    networks:
+      - app-network  # 确保与后端容器共享网络
 
   db:
     image: postgres:13
@@ -39,9 +43,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always 
+    restart: always
+    networks:
+      - app-network  # 确保与后端容器共享网络
 
 volumes:
   postgres_data:
     driver: local
 
+networks:
+  app-network:
+    driver: bridge
