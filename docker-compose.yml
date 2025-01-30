@@ -49,7 +49,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt  # 挂载 SSL 证书目录
     ports:
       - "80:80"
-      - "443:443"
+      - "8443:443"
     depends_on:
       - backend
     restart: always
