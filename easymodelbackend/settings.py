@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import boto3
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +29,8 @@ SECRET_KEY = 'django-insecure-lq+fv6y*y88c1lk*@eht0_hyf6avl)!rtu6qxw1tk6^#k0_m%x
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '3.94.82.167',
-    'ec2-3-94-82-167.compute-1.amazonaws.com'
+    'www.ez3dgames.com',
+    'ez3dgames.com'
 ]
 
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'uploads', 
     'rest_framework', 
+    'rest_framework_simplejwt',
     'storages', 
     'corsheaders',
 ]
@@ -78,6 +80,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'easymodelbackend.wsgi.application'
+
+#restful framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 
 # Database
@@ -183,3 +192,20 @@ CACHES = {
         },
     }
 }
+
+#JWT config
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Access Token 的有效期
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Refresh Token 的有效期
+    'ROTATE_REFRESH_TOKENS': True,                  # 刷新时是否生成新 Refresh Token
+    'BLACKLIST_AFTER_ROTATION': True,               # 是否将旧的 Refresh Token 拉黑
+    'AUTH_HEADER_TYPES': ('Bearer',),               # Authorization header 的前缀
+}
+JWT_PRIVATE_KEY="path/to/private/key.pem"
+JWT_PUBLIC_KEY="path/to/public/key.pem"
+
+#https ssl config
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True  # 强制 Django 使用 HTTPS
+CSRF_COOKIE_SECURE = True   # 确保 CSRF Cookie 只能通过 HTTPS 传输
+SESSION_COOKIE_SECURE = True  # 确保 Session 只通过 HTTPS 传输
