@@ -40,19 +40,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always 
-  
-  nginx:
-    image: nginx:latest
-    container_name: my_nginx_proxy
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # 挂载 Nginx 配置
-      - /etc/letsencrypt:/etc/letsencrypt  # 挂载 SSL 证书目录
-    ports:
-      - "8080:80"
-      - "8443:443"
-    depends_on:
-      - backend
-    restart: always
 
 volumes:
   postgres_data:
