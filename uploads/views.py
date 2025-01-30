@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.conf import settings
 import os
 import uuid
@@ -15,6 +16,8 @@ from .logger import logger
 # Create your views here.
 
 class UploadImageView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.s3_client = settings.AWS_S3_CLIENT  # Initialize S3 client once
