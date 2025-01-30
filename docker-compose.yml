@@ -12,7 +12,6 @@ services:
       - ./your_project:/app/your_project
     environment:
       DEBUG: "True"
-      # 在这里可以把 Redis 地址做成环境变量，也可以直接写死在 settings.py
       REDIS_HOST: redis
       REDIS_PORT: 6379
     command: >
@@ -20,7 +19,7 @@ services:
     depends_on:
       - db
       - redis
-    restart: always  # 可选，确保容器崩溃时重新启动
+    restart: always  
   
   redis:
     image: redis:latest
@@ -40,7 +39,20 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always  # 可选，确保容器崩溃时重新启动
+    restart: always 
+  
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx_proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # 挂载 Nginx 配置
+      - /etc/letsencrypt:/etc/letsencrypt  # 挂载 SSL 证书目录
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    restart: always
 
 volumes:
   postgres_data:
